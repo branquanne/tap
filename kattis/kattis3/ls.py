@@ -1,21 +1,21 @@
-import re
+in_string = input().strip()
+n = int(input().strip())
 
-in_string = input()
-
-n = int(input())
-
-arr = []
+parts = in_string.split("*")
+start = not in_string.startswith("*")
+end = not in_string.endswith("*")
 for _ in range(n):
-    arr.append(input())
+    curr_file = input().strip()
+    i = 0
+    ok = True
 
+    for j, part in enumerate(parts):
+        if part:
+            k = curr_file.find(part, i)
+            if k < 0 or (j == 0 and start and k != 0):
+                ok = False
+                break
+            i = k + len(part)
 
-in_string_temp = in_string.replace(".", r"\.")
-in_string = in_string_temp.replace("*", ".*")
-
-
-regex = r"^" + in_string + r"$"
-pattern = re.compile(regex)
-
-for i in range(0, n):
-    if pattern.fullmatch(arr[i]):
-        print(arr[i])
+    if ok and (not end or curr_file.endswith(parts[-1])):
+        print(curr_file)

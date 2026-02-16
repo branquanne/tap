@@ -17,6 +17,7 @@ def main():
         visited.insert(insert_pos, uv_indx)
         unvisited.remove(uv_indx)
 
+    print(n)
     for point in visited:
         x, y = points[point]
         print(f"{x} {y}")

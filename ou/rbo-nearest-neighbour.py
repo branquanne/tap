@@ -3,16 +3,16 @@ from math import sqrt
 import sys
 
 
-def distance(a, b):
+def find_distance(a, b):
     return sqrt((a[0] - b[0]) ** 2 + (a[1] - b[1]) ** 2)
 
 
 def find_nearest_neighbour(unvisited_neighbours, current_pos):
-    min_distance = float('inf')
+    min_distance = float("inf")
     nearest = None
 
     for point in unvisited_neighbours:
-        dist = distance(current_pos, point)
+        dist = find_distance(current_pos, point)
         if dist < min_distance:
             min_distance = dist
             nearest = point
@@ -20,19 +20,26 @@ def find_nearest_neighbour(unvisited_neighbours, current_pos):
     return nearest
 
 
-def main():
-    temp = []
-    for line in sys.stdin:
-        line = line.strip()
-        if line and not line.startswith("#"):
-            temp.append(line)
-            
-    n = int(temp[0])
+def read_input(n):
     points = []
-    for i in range(1, n + 1):
-        x, y = map(int, temp[i].split())
-        points.append((x, y))
-    
+
+    for line in sys.stdin:
+        line.strip()
+        if line.startswith("#") or not line:
+            continue
+        if n == None:
+            n = int(line)
+        else:
+            x, y = map(int, line.split())
+            points.append((x, y))
+
+    return points
+
+
+def main():
+    n = None
+    points = read_input(n)
+
     visited = [points[0]]
     unvisited = set(points[1:])
     current_pos = points[0]
@@ -42,11 +49,12 @@ def main():
         visited.append(nearest)
         unvisited.remove(nearest)
         current_pos = nearest
-        
+
     print(n)
     for point in visited:
-        print(f"{point[0]} {point[1]}")
-    
+        x, y = points[point]
+        print(f"{x} {y}")
+
 
 if __name__ == "__main__":
     main()

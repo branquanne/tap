@@ -20,11 +20,11 @@ def find_nearest_neighbour(unvisited_neighbours, current_pos):
     return nearest
 
 
-def read_input(n):
+def read_input():
     points = []
-
+    n = None
     for line in sys.stdin:
-        line.strip()
+        line = line.strip()
         if line.startswith("#") or not line:
             continue
         if n is None:
@@ -33,12 +33,15 @@ def read_input(n):
             x, y = map(int, line.split())
             points.append((x, y))
 
-    return points
+    return n, points
 
 
 def main():
-    n = None
-    points = read_input(n)
+    n, points = read_input()
+
+    if not points:
+        print(0)
+        return
 
     visited = [points[0]]
     unvisited = set(points[1:])
@@ -51,8 +54,7 @@ def main():
         current_pos = nearest
 
     print(n)
-    for point in visited:
-        x, y = points[point]
+    for x, y in visited:
         print(f"{x} {y}")
 
 

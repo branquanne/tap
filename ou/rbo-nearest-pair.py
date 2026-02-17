@@ -11,7 +11,7 @@ def main():
     unvisited = set(range(1, len(points)))
 
     while unvisited:
-        v_indx, uv_indx, dist = find_nearest_pair(unvisited, visited, points)
+        v_indx, uv_indx = find_nearest_pair(unvisited, visited, points)
 
         insert_pos = visited.index(v_indx) + 1
         visited.insert(insert_pos, uv_indx)
@@ -56,7 +56,7 @@ def find_nearest_pair(unvisited, visited, points):
                 best_v_indx = v_indx
                 best_uv_indx = uv_indx
 
-    return best_v_indx, best_uv_indx, min_dist
+    return best_v_indx, best_uv_indx
 
 
 if __name__ == "__main__":

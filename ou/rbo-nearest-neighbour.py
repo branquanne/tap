@@ -1,6 +1,6 @@
 # Create and sovle the robot tour optimisation problem using the nearest neighbour heuristic.
-from math import sqrt
 import sys
+from math import sqrt
 
 
 def find_distance(a, b):
@@ -27,7 +27,7 @@ def read_input(n):
         line.strip()
         if line.startswith("#") or not line:
             continue
-        if n == None:
+        if n is None:
             n = int(line)
         else:
             x, y = map(int, line.split())

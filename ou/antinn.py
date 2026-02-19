@@ -30,7 +30,7 @@ def generate_anti_nn():
     cluster_spacing = 2000
     tail_spacing = 500
 
-    # Use 20% of points for the vertical cluster
+    # Use ~20% of points for the vertical cluster
     n_cluster = max(4, int(n * 0.2))
 
     # Build a vertical cluster at x = 0

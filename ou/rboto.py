@@ -84,6 +84,7 @@ def two_opt(order, points):
         # Try reversing segments [i -> j]
         for i in range(1, n - 2):
             for j in range(i + 1, n - 1):
+                # Create a new order by reversing the segment between i and j
                 new_order = best[:i] + best[i : j + 1][::-1] + best[j + 1 :]
                 new_len = tour_length(new_order, points)
 

@@ -16,7 +16,7 @@ Author: Bran Mjöberg Quanne - dv24bme
 
 import sys
 from math import hypot
-from typing import List, Optional, Set, Tuple
+from typing import List, Set, Tuple
 
 
 # Main function delegates tasks
@@ -41,28 +41,25 @@ def main() -> None:
 
     # Print the result
     print(n)
-    for x, y in points:
+    for idx in visited:
+        x, y = points[idx]
         print(f"{x} {y}")
 
 
 # Read the standard input and store the values
-def read_input() -> Tuple[Optional[int], List[Tuple[int, int]]]:
-    n: Optional[int] = None
+def read_input() -> Tuple[int, List[Tuple[int, int]]]:
+    n: int = 0
     points: List[Tuple[int, int]] = []
 
-    # For every input line
     for line in sys.stdin:
         line = line.strip()
 
-        # Ignore lines that start with '#' and empty lines
         if line.startswith("#") or not line:
             continue
 
-        # First valid line is the number of following lines
-        if n is None:
+        if n == 0:
             n = int(line)
         else:
-            # Map the points according to the format 'X Y'
             x, y = map(int, line.split())
             points.append((x, y))
 

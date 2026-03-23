@@ -15,17 +15,21 @@ Author: Bran Mjöberg Quanne - dv24bme
 """
 
 import sys
-from math import sqrt
+from math import hypot
+from typing import List, Optional, Set, Tuple
 
 
 # Main function delegates tasks
-def main():
-    n = None
-    points = read_input(n)
+def main() -> None:
+    n, points = read_input()
+
+    if not points:
+        print(0)
+        return
 
     # Start at first point and mark the rest as unvisited
-    visited = [0]
-    unvisited = set(range(1, len(points)))
+    visited: List[int] = [0]
+    unvisited: Set[int] = set(range(1, len(points)))
 
     # Repeatedly insert the nearest unvisited point next to its nearest visited point
     while unvisited:
@@ -37,44 +41,46 @@ def main():
 
     # Print the result
     print(n)
-    for point in visited:
-        x, y = points[point]
+    for x, y in points:
         print(f"{x} {y}")
 
 
 # Read the standard input and store the values
-def read_input(n):
-    points = []
+def read_input() -> Tuple[Optional[int], List[Tuple[int, int]]]:
+    n: Optional[int] = None
+    points: List[Tuple[int, int]] = []
 
     # For every input line
     for line in sys.stdin:
-        line.strip()
+        line = line.strip()
 
         # Ignore lines that start with '#' and empty lines
         if line.startswith("#") or not line:
             continue
 
         # First valid line is the number of following lines
-        if n == None:
+        if n is None:
             n = int(line)
         else:
             # Map the points according to the format 'X Y'
             x, y = map(int, line.split())
             points.append((x, y))
 
-    return points
+    return n, points
 
 
 # Calculate distance between points using Euclidean distance
-def find_distance(a, b):
-    return sqrt((a[0] - b[0]) ** 2 + (a[1] - b[1]) ** 2)
+def find_distance(a: Tuple[int, int], b: Tuple[int, int]) -> float:
+    return hypot(a[0] - b[0], a[1] - b[1])
 
 
 # Find the nearest pair between visited and unvisited points
-def find_nearest_pair(unvisited, visited, points):
+def find_nearest_pair(
+    unvisited: set, visited: List[int], points: List[Tuple[int, int]]
+) -> Tuple[int, int]:
     min_dist = float("inf")
-    best_v_indx = None
-    best_uv_indx = None
+    best_v_indx: int = 0
+    best_uv_indx: int = 0
 
     # Compare every visited point with every unvisited point
     for v_indx in visited:

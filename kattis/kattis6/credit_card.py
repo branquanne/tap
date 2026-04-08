@@ -1,8 +1,8 @@
 from decimal import Decimal, ROUND_HALF_UP
-import sys
 
 HUNDRED = Decimal("100")
 CENT = Decimal("0.01")
+
 
 def round_cent_up(x: Decimal) -> Decimal:
     return x.quantize(CENT, rounding=ROUND_HALF_UP)
@@ -23,7 +23,7 @@ def minimum_months(t):
 
         b = new_balance
 
-    if b>0:
+    if b > 0:
         return "impossible"
     return months
 
@@ -43,3 +43,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
